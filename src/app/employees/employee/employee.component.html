@@ -1,4 +1,4 @@
-<form #form="ngForm" autocomplete="off">
+<form #form="ngForm" (submit) = "onSubmit(form)" autocomplete="off">
   <div class="form-group">
     <label>Emp Name</label>
     <input name="EmpName" #EmpName="ngModel" [(ngModel)]="service.formData.EmpName" class="form-control" required>
