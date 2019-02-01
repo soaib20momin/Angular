@@ -31,15 +31,30 @@ export class EmployeeComponent implements OnInit {
   }
 
   onSubmit(form : NgForm){
+    if(form.value.EmployeeID == null)
+    {
     this.insertRecord(form);
+    }
+    else
+    {
+    this.updateRecord(form);
+    }
   }
 
   insertRecord(form : NgForm){
     this.service.postEmployee(form.value).subscribe(res => {
       this.toastr.success('Inserted Successfully!!','Employee Register');
       this.resetForm(form);
+      this.service.getEmployees();
     });
   }
 
+  updateRecord(form : NgForm){
+    this.service.putEmployee(form.value).subscribe(res => {
+      this.toastr.info('Updated Successfully!!','Employee Register');
+      this.resetForm(form);
+      this.service.getEmployees();
+    });
+  }
 
 } 

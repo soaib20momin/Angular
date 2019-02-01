@@ -7,7 +7,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EmployeeService {
 
-  formData : Employee
+  formData : Employee;
+  list : Employee[];
 
   readonly rootURL = "http://localhost:52703/api";
   
@@ -17,5 +18,16 @@ export class EmployeeService {
     return this.http.post(this.rootURL+'/Employee', formData);
   }
 
+  getEmployees(){
+    this.http.get(this.rootURL+'/Employee').toPromise()
+    .then(res => this.list = res as Employee[]);
+  }
 
+  putEmployee(formData : Employee){
+    return this.http.put(this.rootURL+'/Employee/'+formData.EmployeeID,formData);
+  }
+
+  deleteEmployee(id : number){
+    return this.http.delete(this.rootURL+'/Employee/'+id);
+  }
 }
